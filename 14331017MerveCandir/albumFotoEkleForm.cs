@@ -18,17 +18,20 @@ namespace _14331017MerveCandir
         {
             InitializeComponent();
         }
-        ArrayList ID = new ArrayList();
-        ArrayList foto = new ArrayList();
+       
         SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=instagram;Integrated Security=True");
         private void albumFotoEkleForm_Load(object sender, EventArgs e)
         {
+            ArrayList ID = new ArrayList();
+            ArrayList foto = new ArrayList();
             try
             {
                 if (con.State == ConnectionState.Closed)
                     con.Open();
-                SqlCommand command = new SqlCommand("select ID,foto from fototbl"+Form1.kullaniciID+" where "+Text+"!=1 ", con);
+               
+                SqlCommand command = new SqlCommand("select ID,foto from fototbl"+Form1.kullaniciID+" ", con);
                 SqlDataReader reader = command.ExecuteReader();
+                
                 while(reader.Read())
                 {
                     ID.Add(reader.GetInt32(0));
@@ -72,7 +75,7 @@ namespace _14331017MerveCandir
 
         private void picClick(object sender, EventArgs e)
         {
-           (( PictureBox)sender).SizeMode= PictureBoxSizeMode.StretchImage;
+            secilenFotopictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             secilenFotopictureBox1.Image = ((PictureBox)sender).Image;
            secilenFotopictureBox1.Name = ((PictureBox)sender).Name;
            // MessageBox.Show(secilenFotopictureBox1.Name);
@@ -85,6 +88,7 @@ namespace _14331017MerveCandir
             {
                 if (con.State == ConnectionState.Closed)
                     con.Open();
+
                 SqlCommand command = new SqlCommand("update fototbl"+Form1.kullaniciID+" set "+this.Text+"=1 where ID="+Convert.ToInt32( secilenFotopictureBox1.Name)+"", con);
                 command.ExecuteNonQuery();
                 MessageBox.Show("FOROGRAF EKLENMİŞTİR");
@@ -94,7 +98,7 @@ namespace _14331017MerveCandir
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("bir fotograf secmediniz");
             }
         }
     }

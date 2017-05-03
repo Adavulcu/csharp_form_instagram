@@ -1424,7 +1424,7 @@ namespace _14331017MerveCandir {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public paylasimTblRow AddpaylasimTblRow(int kisiID, int fotoID, string foto) {
+            public paylasimTblRow AddpaylasimTblRow(int kisiID, string fotoID, string foto) {
                 paylasimTblRow rowpaylasimTblRow = ((paylasimTblRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1473,7 +1473,7 @@ namespace _14331017MerveCandir {
                 base.Columns.Add(this.columnID);
                 this.columnkisiID = new global::System.Data.DataColumn("kisiID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnkisiID);
-                this.columnfotoID = new global::System.Data.DataColumn("fotoID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnfotoID = new global::System.Data.DataColumn("fotoID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfotoID);
                 this.columnfoto = new global::System.Data.DataColumn("foto", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfoto);
@@ -1487,6 +1487,7 @@ namespace _14331017MerveCandir {
                 this.columnID.Unique = true;
                 this.columnkisiID.AllowDBNull = false;
                 this.columnfotoID.AllowDBNull = false;
+                this.columnfotoID.MaxLength = 20;
                 this.columnfoto.AllowDBNull = false;
                 this.columnfoto.MaxLength = 2147483647;
             }
@@ -1732,7 +1733,7 @@ namespace _14331017MerveCandir {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public yorumTblRow AddyorumTblRow(int fotoID, int kisiID, string yorum) {
+            public yorumTblRow AddyorumTblRow(string fotoID, int kisiID, string yorum) {
                 yorumTblRow rowyorumTblRow = ((yorumTblRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1779,7 +1780,7 @@ namespace _14331017MerveCandir {
             private void InitClass() {
                 this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID);
-                this.columnfotoID = new global::System.Data.DataColumn("fotoID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnfotoID = new global::System.Data.DataColumn("fotoID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfotoID);
                 this.columnkisiID = new global::System.Data.DataColumn("kisiID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnkisiID);
@@ -1794,6 +1795,7 @@ namespace _14331017MerveCandir {
                 this.columnID.ReadOnly = true;
                 this.columnID.Unique = true;
                 this.columnfotoID.AllowDBNull = false;
+                this.columnfotoID.MaxLength = 20;
                 this.columnkisiID.AllowDBNull = false;
                 this.columnyorum.AllowDBNull = false;
                 this.columnyorum.MaxLength = 2147483647;
@@ -2116,9 +2118,9 @@ namespace _14331017MerveCandir {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int fotoID {
+            public string fotoID {
                 get {
-                    return ((int)(this[this.tablepaylasimTbl.fotoIDColumn]));
+                    return ((string)(this[this.tablepaylasimTbl.fotoIDColumn]));
                 }
                 set {
                     this[this.tablepaylasimTbl.fotoIDColumn] = value;
@@ -2164,9 +2166,9 @@ namespace _14331017MerveCandir {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int fotoID {
+            public string fotoID {
                 get {
-                    return ((int)(this[this.tableyorumTbl.fotoIDColumn]));
+                    return ((string)(this[this.tableyorumTbl.fotoIDColumn]));
                 }
                 set {
                     this[this.tableyorumTbl.fotoIDColumn] = value;
@@ -3513,7 +3515,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[paylasimTbl] ([kisiID], [fotoID], [foto]) VALUES (@kisiID, @fo" +
@@ -3521,7 +3523,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 "E_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@foto", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "foto", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
@@ -3531,11 +3533,11 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 "(ID = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@foto", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "foto", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -3613,10 +3615,15 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_kisiID, int Original_fotoID) {
+        public virtual int Delete(int Original_ID, int Original_kisiID, string Original_fotoID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_kisiID));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_fotoID));
+            if ((Original_fotoID == null)) {
+                throw new global::System.ArgumentNullException("Original_fotoID");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_fotoID));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3637,9 +3644,14 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int kisiID, int fotoID, string foto) {
+        public virtual int Insert(int kisiID, string fotoID, string foto) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(kisiID));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(fotoID));
+            if ((fotoID == null)) {
+                throw new global::System.ArgumentNullException("fotoID");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(fotoID));
+            }
             if ((foto == null)) {
                 throw new global::System.ArgumentNullException("foto");
             }
@@ -3666,9 +3678,14 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int kisiID, int fotoID, string foto, int Original_ID, int Original_kisiID, int Original_fotoID, int ID) {
+        public virtual int Update(int kisiID, string fotoID, string foto, int Original_ID, int Original_kisiID, string Original_fotoID, int ID) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(kisiID));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(fotoID));
+            if ((fotoID == null)) {
+                throw new global::System.ArgumentNullException("fotoID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(fotoID));
+            }
             if ((foto == null)) {
                 throw new global::System.ArgumentNullException("foto");
             }
@@ -3677,7 +3694,12 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
             this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_kisiID));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_fotoID));
+            if ((Original_fotoID == null)) {
+                throw new global::System.ArgumentNullException("Original_fotoID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_fotoID));
+            }
             this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3699,7 +3721,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int kisiID, int fotoID, string foto, int Original_ID, int Original_kisiID, int Original_fotoID) {
+        public virtual int Update(int kisiID, string fotoID, string foto, int Original_ID, int Original_kisiID, string Original_fotoID) {
             return this.Update(kisiID, fotoID, foto, Original_ID, Original_kisiID, Original_fotoID, Original_ID);
         }
     }
@@ -3836,7 +3858,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 "al_fotoID) AND ([kisiID] = @Original_kisiID))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
@@ -3844,7 +3866,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 "ID, @yorum);\r\nSELECT ID, fotoID, kisiID, yorum FROM yorumTbl WHERE (ID = SCOPE_I" +
                 "DENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@yorum", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "yorum", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
@@ -3854,11 +3876,11 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 " = @Original_kisiID));\r\nSELECT ID, fotoID, kisiID, yorum FROM yorumTbl WHERE (ID" +
                 " = @ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@yorum", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "yorum", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_fotoID", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "fotoID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_kisiID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "kisiID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -3937,9 +3959,14 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, int Original_fotoID, int Original_kisiID) {
+        public virtual int Delete(int Original_ID, string Original_fotoID, int Original_kisiID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_fotoID));
+            if ((Original_fotoID == null)) {
+                throw new global::System.ArgumentNullException("Original_fotoID");
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_fotoID));
+            }
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_kisiID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3961,8 +3988,13 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int fotoID, int kisiID, string yorum) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(fotoID));
+        public virtual int Insert(string fotoID, int kisiID, string yorum) {
+            if ((fotoID == null)) {
+                throw new global::System.ArgumentNullException("fotoID");
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(fotoID));
+            }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(kisiID));
             if ((yorum == null)) {
                 throw new global::System.ArgumentNullException("yorum");
@@ -3990,8 +4022,13 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int fotoID, int kisiID, string yorum, int Original_ID, int Original_fotoID, int Original_kisiID, int ID) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(fotoID));
+        public virtual int Update(string fotoID, int kisiID, string yorum, int Original_ID, string Original_fotoID, int Original_kisiID, int ID) {
+            if ((fotoID == null)) {
+                throw new global::System.ArgumentNullException("fotoID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(fotoID));
+            }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(kisiID));
             if ((yorum == null)) {
                 throw new global::System.ArgumentNullException("yorum");
@@ -4000,7 +4037,12 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(yorum));
             }
             this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_fotoID));
+            if ((Original_fotoID == null)) {
+                throw new global::System.ArgumentNullException("Original_fotoID");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_fotoID));
+            }
             this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_kisiID));
             this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(ID));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
@@ -4023,7 +4065,7 @@ SELECT ID, AdSoyad, sifre, ePosta FROM kullaniciTbl WHERE (ePosta = @ePosta)";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int fotoID, int kisiID, string yorum, int Original_ID, int Original_fotoID, int Original_kisiID) {
+        public virtual int Update(string fotoID, int kisiID, string yorum, int Original_ID, string Original_fotoID, int Original_kisiID) {
             return this.Update(fotoID, kisiID, yorum, Original_ID, Original_fotoID, Original_kisiID, Original_ID);
         }
     }

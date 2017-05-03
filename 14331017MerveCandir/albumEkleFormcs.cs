@@ -39,8 +39,9 @@ namespace _14331017MerveCandir
                     MessageBox.Show("album olusturulmustur");
 
                     Form1 frm = new Form1();
+                  
                     frm.albumGroupBoxDoldur();
-
+                    con.Close();
                 }
                 this.Close();
             }

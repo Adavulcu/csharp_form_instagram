@@ -20,3 +20,14 @@ C:\Users\APO\Documents\Visual Studio 2017\Projects\14331017MerveCandir\14331017M
 C:\Users\APO\Documents\Visual Studio 2017\Projects\14331017MerveCandir\14331017MerveCandir\obj\Debug\14331017MerveCandir.csproj.GenerateResource.Cache
 C:\Users\APO\Documents\Visual Studio 2017\Projects\14331017MerveCandir\14331017MerveCandir\obj\Debug\14331017MerveCandir.exe
 C:\Users\APO\Documents\Visual Studio 2017\Projects\14331017MerveCandir\14331017MerveCandir\obj\Debug\14331017MerveCandir.pdb
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\bin\Debug\14331017MerveCandir.exe.config
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\bin\Debug\14331017MerveCandir.exe
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\bin\Debug\14331017MerveCandir.pdb
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\14331017MerveCandir.csprojResolveAssemblyReference.cache
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\_14331017MerveCandir.albumEkleFormcs.resources
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\_14331017MerveCandir.albumFotoEkleForm.resources
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\_14331017MerveCandir.Form1.resources
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\_14331017MerveCandir.Properties.Resources.resources
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\14331017MerveCandir.csproj.GenerateResource.Cache
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\14331017MerveCandir.exe
+C:\Users\apo\Documents\Visual Studio 2017\Projects\csharp_form_instagram\14331017MerveCandir\obj\Debug\14331017MerveCandir.pdb

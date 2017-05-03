@@ -370,7 +370,7 @@
             this.anaSayfapictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.anaSayfapictureBox1.TabIndex = 0;
             this.anaSayfapictureBox1.TabStop = false;
-            this.anaSayfapictureBox1.Click += new System.EventHandler(this.anaSayfapictureBox1_Click);
+           
             // 
             // yorumEkleBtn
             // 
@@ -640,7 +640,7 @@
             this.profilTabpictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.profilTabpictureBox3.TabIndex = 0;
             this.profilTabpictureBox3.TabStop = false;
-            this.profilTabpictureBox3.Click += new System.EventHandler(this.profilTabpictureBox3_Click);
+           
             // 
             // profilTabYorumText
             // 

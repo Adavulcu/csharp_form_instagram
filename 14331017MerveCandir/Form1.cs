@@ -19,7 +19,7 @@ namespace _14331017MerveCandir
 
         public static int kullaniciID;
         int profilTabfotoID;
-        int anaTabfotoID;
+        string anaTabfotoID;
         int arananKisiID;
         int isArananKisiID;
         int okulArananKisiID;
@@ -72,8 +72,9 @@ namespace _14331017MerveCandir
                 string ePosta = null;
                 string sifre = null;
                 int id = -1;
+                string ad = null;
                 profilTabYorumText.Text = "";
-                SqlCommand command = new SqlCommand("select ID,ePosta,sifre from kullaniciTbl where ePosta='" + ePostaText.Text
+                SqlCommand command = new SqlCommand("select ID,ePosta,sifre,AdSoyad from kullaniciTbl where ePosta='" + ePostaText.Text
                     + "' and sifre='" + sifreText.Text + "'", con);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -81,6 +82,7 @@ namespace _14331017MerveCandir
                     ePosta = reader.GetString(1);
                     sifre = reader.GetString(2);
                     id = reader.GetInt32(0);
+                    ad = reader.GetString(3);
                 }
                 reader.Close();
                 //  MessageBox.Show("ID : (" + id + ") e posta : (" + ePosta + ") sifre : (" + sifre+")");
@@ -88,7 +90,7 @@ namespace _14331017MerveCandir
                 {
                     kullaniciID = id;
                     instagramTab.Controls.Add(anaSayfaTab);
-                  
+                    Text = ad;
                     instagramTab.SelectedTab = anaSayfaTab;
                     instagramTab.Controls.Remove(girisTab);
                     anaSayfaPaylasim();
@@ -103,6 +105,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
         private bool arkadasSec(int ID)
         {
             for (int i = 0; i < arkadasID.Count; i++)
@@ -112,6 +115,7 @@ namespace _14331017MerveCandir
             }
             return false;
         }
+
         private void anaSayfaPaylasim()
         {
             try
@@ -136,7 +140,7 @@ namespace _14331017MerveCandir
                     {
                         ID.Add(reader.GetInt32(0));
                         kisiID.Add(reader.GetInt32(1));
-                        fotoID.Add(reader.GetInt32(2));
+                        fotoID.Add(reader.GetString(2));
                         foto.Add(reader.GetString(3));
                     }
                 }
@@ -151,13 +155,13 @@ namespace _14331017MerveCandir
                     numericUpDown1.Minimum = 0;
                     numericUpDown1.Maximum = foto.Count - 1;
                     reader.Close();
-                    anaTabfotoID = Convert.ToInt32(kisiID[kisiID.Count - 1]);
+                    anaTabfotoID = Convert.ToString(fotoID[fotoID.Count - 1]);
                     command.CommandText = "select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[kisiID.Count - 1]) + "";
                     paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
                     anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[foto.Count - 1]));
                     anaSayfapictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
                     //yorumlar
-                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID=" + Convert.ToInt32(fotoID[fotoID.Count - 1]) + " ";
+                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[fotoID.Count - 1]) + "' ";
                     ArrayList yorum = new ArrayList();
                     ArrayList yorumKisiID = new ArrayList();
                     reader = command.ExecuteReader();
@@ -188,6 +192,7 @@ namespace _14331017MerveCandir
         {
             kayitgroupBox2.Visible = true;
         }
+
         private void profilBtn_Click(object sender, EventArgs e)
         {
             instagramTab.Controls.Add(profilTab);
@@ -343,6 +348,7 @@ namespace _14331017MerveCandir
             ID.TrimToSize();
             fotoID.Clear();
             fotoID.TrimToSize();
+            anaSayfaYorumYaprichTextBox1.Text = "";
             kayitgroupBox2.Visible = false;
             gecersizLabel.Visible = false;
             profilTabpictureBox3.Image = null;
@@ -433,7 +439,8 @@ namespace _14331017MerveCandir
                 ArrayList yorum = new ArrayList();
                 ArrayList kisiID = new ArrayList();
                 profilTabYorumText.Text = "";
-                SqlCommand command = new SqlCommand("select yorum,kisiID from yorumTbl where fotoID=" + ((PictureBox)sender).Name + "", con);
+                string fID = kullaniciID.ToString() + "*" + profilTabfotoID.ToString();
+                SqlCommand command = new SqlCommand("select yorum,kisiID from yorumTbl where fotoID='" + fID+ "'", con);
                 // MessageBox.Show(((PictureBox)sender).Name);
                 SqlDataReader reader = command.ExecuteReader();
                 while (reader.Read())
@@ -458,9 +465,6 @@ namespace _14331017MerveCandir
             }
         }
        
-
-
-
         private void kaydetBtn_Click(object sender, EventArgs e)
         {
             try
@@ -495,10 +499,7 @@ namespace _14331017MerveCandir
 
         }
 
-        private void profilTabpictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void yorumYapProfilBtn_Click(object sender, EventArgs e)
         {
@@ -508,8 +509,8 @@ namespace _14331017MerveCandir
                     con.Open();
                 if (profilTabfotoID != 0)
                 {
-                    string fID = kullaniciID.ToString() + profilTabfotoID.ToString();
-                    SqlCommand command = new SqlCommand("insert into yorumTbl values(" +Convert.ToInt32(fID) + "," + kullaniciID + ",'" + profilTabYorumYaprichTextBox1.Text + "')", con);
+                    string fID = kullaniciID.ToString() +"*"+ profilTabfotoID.ToString();
+                    SqlCommand command = new SqlCommand("insert into yorumTbl values('" +fID + "'," + kullaniciID + ",'" + profilTabYorumYaprichTextBox1.Text + "')", con);
                     command.ExecuteNonQuery();
                     MessageBox.Show("Yorum yapılmıstır");
                     con.Close();
@@ -533,14 +534,14 @@ namespace _14331017MerveCandir
                     con.Open();
                 if (profilTabfotoID != 0)
                 {
-                    string fID = kullaniciID.ToString() + profilTabfotoID.ToString();
+                    string fID = kullaniciID.ToString() + "*" + profilTabfotoID.ToString();
                     string fotoYol = null;
                     SqlCommand command1 = new SqlCommand("select foto from fototbl" + kullaniciID + " where ID =" + profilTabfotoID + "", con);
                     SqlDataReader reader = command1.ExecuteReader();
                     if (reader.Read())
                         fotoYol = reader.GetString(0);
                     reader.Close();
-                    SqlCommand command = new SqlCommand("insert into paylasimTbl values (" + kullaniciID + ", " + Convert.ToInt32(fID) + ",'" + fotoYol + "')", con);
+                    SqlCommand command = new SqlCommand("insert into paylasimTbl values (" + kullaniciID + ", '" + fID + "','" + fotoYol + "')", con);
                     command.ExecuteNonQuery();
                     MessageBox.Show("Fotoğraf Paylaşılmştır");
                     con.Close();
@@ -1084,6 +1085,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
         public  void albumGroupBoxDoldur()
         {
 
@@ -1161,6 +1163,11 @@ namespace _14331017MerveCandir
 
                 if (con.State == ConnectionState.Closed)
                     con.Open();
+                int count = albumResimlergroupBox6.Controls.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    albumResimlergroupBox6.Controls.Remove(albumResimlergroupBox6.Controls[0]);
+                }
                 SqlCommand command = new SqlCommand("select foto from fototbl" + kullaniciID + " where " + ((PictureBox)sender).Name + "=1", con);
                 SqlDataReader reader = command.ExecuteReader();
                 int counter = 0;
@@ -1199,9 +1206,9 @@ namespace _14331017MerveCandir
 
         private void albumeFotoEkle(object sender,EventArgs e)
         {
-            albumFotoEkleForm frm = new albumFotoEkleForm();
-            frm.Text = ((Button)sender).Name;
-            frm.Show();
+            albumFotoEkleForm frm1 = new albumFotoEkleForm();
+            frm1.Text = ((Button)sender).Name;
+            frm1.Show();
         }
 
        
@@ -1212,9 +1219,10 @@ namespace _14331017MerveCandir
             {
                 if (con.State == ConnectionState.Closed)
                     con.Open();
-                if (anaTabfotoID != 0)
+                if (anaTabfotoID != null)
                 {
-                    SqlCommand command = new SqlCommand("insert into yorumTbl values(" +(kullaniciID+ anaTabfotoID) + "," + kullaniciID + ",'" +anaSayfaYorumYaprichTextBox1.Text + "')", con);
+                    
+                    SqlCommand command = new SqlCommand("insert into yorumTbl values('" +anaTabfotoID + "'," + kullaniciID + ",'" +anaSayfaYorumYaprichTextBox1.Text + "')", con);
                     command.ExecuteNonQuery();
                     MessageBox.Show("Yorum yapılmıstır");
                     con.Close();
@@ -1229,12 +1237,7 @@ namespace _14331017MerveCandir
             }
         }
 
-        private void anaSayfapictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-      
-        
+       
       
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -1251,13 +1254,14 @@ namespace _14331017MerveCandir
                 else
                 {
                     yorumlarRichText.Text = "";
+                    anaSayfaYorumYaprichTextBox1.Text = "";
                     // MessageBox.Show(index.ToString());
                     SqlCommand command = new SqlCommand("select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[Convert.ToInt32(numericUpDown1.Value)]) + "", con);
                     paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
                     anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[Convert.ToInt32(numericUpDown1.Value)]));
                     anaSayfapictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-
-                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID=" + Convert.ToInt32(fotoID[Convert.ToInt32(numericUpDown1.Value)]) + "";
+                    anaTabfotoID = Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value)]);
+                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value)]) + "'";
                     ArrayList yorum = new ArrayList();
                     ArrayList yorumKisiID = new ArrayList();
                     SqlDataReader reader = command.ExecuteReader();
@@ -1286,6 +1290,16 @@ namespace _14331017MerveCandir
 
         private void geriBtn_Click(object sender, EventArgs e)
         {
+            arkadasID.Clear();
+            arkadasID.TrimToSize();
+            foto.Clear();
+            foto.TrimToSize();
+            kisiID.Clear();
+            kisiID.TrimToSize();
+            ID.Clear();
+            ID.TrimToSize();
+            fotoID.Clear();
+            fotoID.TrimToSize();
             anaSayfaPaylasim();
             instagramTab.Controls.Add(anaSayfaTab);
             instagramTab.SelectedTab = anaSayfaTab;
