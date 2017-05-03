@@ -63,7 +63,7 @@ namespace _14331017MerveCandir
             }
         }
 
-        private void girisBtn_Click(object sender, EventArgs e)
+        private void girisBtn_Click(object sender, EventArgs e)//giriş yeri
         {
             try
             {
@@ -74,6 +74,10 @@ namespace _14331017MerveCandir
                 int id = -1;
                 string ad = null;
                 profilTabYorumText.Text = "";
+                /*
+                 Burda ID giriş yapan kullanıcının ID sini kullaniciID degişkenine atamak için  ekilmiştir.
+                 ePosta ve sifre ise giriş dogrulamaka için cekilmiştir.
+                  */
                 SqlCommand command = new SqlCommand("select ID,ePosta,sifre,AdSoyad from kullaniciTbl where ePosta='" + ePostaText.Text
                     + "' and sifre='" + sifreText.Text + "'", con);
                 SqlDataReader reader = command.ExecuteReader();
@@ -86,6 +90,7 @@ namespace _14331017MerveCandir
                 }
                 reader.Close();
                 //  MessageBox.Show("ID : (" + id + ") e posta : (" + ePosta + ") sifre : (" + sifre+")");
+                // egeri giriş dogru ise asagıdaki kodlar calısır
                 if (ePosta == ePostaText.Text && sifre == sifreText.Text)
                 {
                     kullaniciID = id;
@@ -106,7 +111,7 @@ namespace _14331017MerveCandir
             }
         }
 
-        private bool arkadasSec(int ID)
+        private bool arkadasSec(int ID)//ana sayfada paylasılan fotoların kullanıcının arkadasının olup olmadıgını ayırt etmek iciçn gerekli metot
         {
             for (int i = 0; i < arkadasID.Count; i++)
             {
@@ -116,7 +121,7 @@ namespace _14331017MerveCandir
             return false;
         }
 
-        private void anaSayfaPaylasim()
+        private void anaSayfaPaylasim()//ana sayfa
         {
             try
             {
@@ -124,6 +129,7 @@ namespace _14331017MerveCandir
                     con.Open();
                
                 arkadasID = new ArrayList();
+                //tüm arkadaslarlar secilip bir array liste atılıyor
                 SqlCommand command = new SqlCommand("select kisiID from arkadastbl"+kullaniciID+" ", con);
                 SqlDataReader reader = command.ExecuteReader();
                 while(reader.Read())
@@ -136,6 +142,7 @@ namespace _14331017MerveCandir
                 yorumlarRichText.Text = "";
                 while (reader.Read())
                 {
+                    //burada arakadsSec metodu cagrılarak paylasımın sahibi kullanıcının arkadasımı? yoksa degil mi kontrol edilyor
                     if (reader.GetInt32(1)==kullaniciID || arkadasSec(reader.GetInt32(1)))
                     {
                         ID.Add(reader.GetInt32(0));
@@ -158,9 +165,10 @@ namespace _14331017MerveCandir
                     anaTabfotoID = Convert.ToString(fotoID[fotoID.Count - 1]);
                     command.CommandText = "select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[kisiID.Count - 1]) + "";
                     paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
+                    //sayfa ilk acıldıgında son paylasınlan foto buradan gösteriliyor
                     anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[foto.Count - 1]));
                     anaSayfapictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                    //yorumlar
+                    //sayfa ilk acıldıgında son paylasınlan fotonun yorumları buradan cekiliyor
                     command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[fotoID.Count - 1]) + "' ";
                     ArrayList yorum = new ArrayList();
                     ArrayList yorumKisiID = new ArrayList();
@@ -172,6 +180,7 @@ namespace _14331017MerveCandir
                     }
                     reader.Close();
                     int counter = 0;
+                    //paylasılan fotoya ait yorumlar
                     while (counter < yorum.Count)
                     {
                         command.CommandText = "select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(yorumKisiID[counter]) + "";
@@ -193,7 +202,7 @@ namespace _14331017MerveCandir
             kayitgroupBox2.Visible = true;
         }
 
-        private void profilBtn_Click(object sender, EventArgs e)
+        private void profilBtn_Click(object sender, EventArgs e)//profil sayfasına gecildiginde gerekli metotlar carılıyor
         {
             instagramTab.Controls.Add(profilTab);
             instagramTab.SelectedTab = profilTab;
@@ -207,7 +216,7 @@ namespace _14331017MerveCandir
             albumGroupBoxDoldur();
 
         }
-
+        //arkadas ara sayfasına gecildiginde gerekli kodlar 
         private void arkadasAraBtn_Click(object sender, EventArgs e)
         {
             arkadasAragroupBox8.Visible = true;
@@ -216,7 +225,7 @@ namespace _14331017MerveCandir
             instagramTab.Controls.Remove(anaSayfaTab);
             instagramTab.SelectedTab = arkadaslarAraTab;
         }
-
+        //istekler sayfasına gecildiginde gerekli kodlar
         private void isteklerBtn_Click(object sender, EventArgs e)
         {
             try
@@ -303,7 +312,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //bu metot gelen istei onaylama için yazılmıstır
         private void btnClick(object sender, EventArgs e)
         {
             try
@@ -331,7 +340,7 @@ namespace _14331017MerveCandir
 
 
         }
-
+        //cıkıs metodu
         private void cıkısBtn_Click(object sender, EventArgs e)
         {
             instagramTab.Controls.Add(girisTab);
@@ -354,7 +363,7 @@ namespace _14331017MerveCandir
             profilTabpictureBox3.Image = null;
             anaSayfapictureBox1.Image = null;
         }   
-
+        //fotograflar diaolg aracılgıyla ekleniyor
         private void fotoEkleBtn_Click(object sender, EventArgs e)
         {
             if (con.State == ConnectionState.Closed)
@@ -379,7 +388,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //kullanıcının profilne ait tüm fotograflar burada gösteriliyor
         private void profilFotoDoldur()
         {
             try
@@ -426,7 +435,7 @@ namespace _14331017MerveCandir
 
 
         }
-
+        //profildeki herhangi bir foto tıklandıgında calısması gereken metotlar
         private void picClick(object sender, EventArgs e)
         {
             try
@@ -440,6 +449,7 @@ namespace _14331017MerveCandir
                 ArrayList kisiID = new ArrayList();
                 profilTabYorumText.Text = "";
                 string fID = kullaniciID.ToString() + "*" + profilTabfotoID.ToString();
+                //secilen fotoya ait yorumlar
                 SqlCommand command = new SqlCommand("select yorum,kisiID from yorumTbl where fotoID='" + fID+ "'", con);
                 // MessageBox.Show(((PictureBox)sender).Name);
                 SqlDataReader reader = command.ExecuteReader();
@@ -464,7 +474,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-       
+       //kullancı kaydetme
         private void kaydetBtn_Click(object sender, EventArgs e)
         {
             try
@@ -500,7 +510,7 @@ namespace _14331017MerveCandir
         }
 
        
-
+        //profilde secilen foto için yorum yapma
         private void yorumYapProfilBtn_Click(object sender, EventArgs e)
         {
             try
@@ -525,7 +535,7 @@ namespace _14331017MerveCandir
             }
 
         }
-
+        //profilde secilen fotoyu paylaşma
         private void paylasBtn_Click(object sender, EventArgs e)
         {
             try
@@ -555,7 +565,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //arkadas arama text i
         private void arkadasAraText_TextChanged(object sender, EventArgs e)
         {
             try
@@ -579,7 +589,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //arkadasları okul grubuna eklemek için okul grubunda olmayan arkadasların listesi
         private void okulArkgridDoldur()
         {
             try
@@ -599,7 +609,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //arkadasları is grubuna eklemek için is grubunda olmayan arkadasların listesi
         private void isArkGridDoldur()
         {
             try
@@ -619,7 +629,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //tüm arkadasların gösterildigi yer
         private void tumArkDoldur()
         {
             try
@@ -693,7 +703,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //is arkadasların gösterildigi yer
         private void isArkDoldu()
         {
             try
@@ -767,7 +777,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //okul arkadasların gösterildigi yer
         private void okulArkDoldur()
         {
             try
@@ -841,7 +851,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //aranan arkadasların listelendigi yer ve tıklandıgında calısası gerek kodlar
         private void aradasAramaListesidataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -887,7 +897,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //istek yollamam metodu
         private void istekYollaBtn_Click(object sender, EventArgs e)
         {
             try
@@ -912,7 +922,7 @@ namespace _14331017MerveCandir
             }
 
         }
-
+         //eger kullanıcı bir kişi ile arkadas ise o kişiye tekrar istek göndermememsi için gerekli kontrol metodu
         private bool istekControl()
         {
             try
@@ -940,7 +950,7 @@ namespace _14331017MerveCandir
             }
             return false;
         }
-
+        //iş arkadasların listelendigi yer ve tıklandıgında calısası gerek kodlar
         private void isArkdataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -980,7 +990,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //iş arkaası ekleme yeri
         private void isArkadasEkleBtn_Click(object sender, EventArgs e)
         {
             try
@@ -1005,7 +1015,7 @@ namespace _14331017MerveCandir
             }
 
         }
-
+        //okul arkadasların listelendigi yer ve tıklandıgında calısası gerek kodlar
         private void okulArkDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -1045,7 +1055,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //okul arkadas ekleme yeri
         private void okulArkadasEkleBtn_Click(object sender, EventArgs e)
         {
             try
@@ -1069,7 +1079,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //album olusturma yeri
         private void albumOlsturBtn_Click(object sender, EventArgs e)
         {
             try
@@ -1085,7 +1095,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //bütün albumlerin gösterildigi yer
         public  void albumGroupBoxDoldur()
         {
 
@@ -1155,7 +1165,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-       
+       //secilen albume ait fotoların gösterildigi metot
        public void secilenAlbumDoldur(object sender, EventArgs e)
         {
             try
@@ -1203,7 +1213,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //almbume foto eklme
         private void albumeFotoEkle(object sender,EventArgs e)
         {
             albumFotoEkleForm frm1 = new albumFotoEkleForm();
@@ -1212,7 +1222,7 @@ namespace _14331017MerveCandir
         }
 
        
-
+        //ana sayfadaki paylasılmıs fotoya yorum yapma metodu
         private void yorumEkleBtn_Click(object sender, EventArgs e)
         {
             try
@@ -1239,7 +1249,7 @@ namespace _14331017MerveCandir
 
        
       
-
+        //numaricUpdown un sahip oldugu degere göre paylasımlar gösterme
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             try
@@ -1287,7 +1297,7 @@ namespace _14331017MerveCandir
                 MessageBox.Show(ex.Message.ToString());
             }
         }
-
+        //ana sayfaya dönme yeri
         private void geriBtn_Click(object sender, EventArgs e)
         {
             arkadasID.Clear();

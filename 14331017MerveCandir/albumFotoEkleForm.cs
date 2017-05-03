@@ -29,7 +29,7 @@ namespace _14331017MerveCandir
                 if (con.State == ConnectionState.Closed)
                     con.Open();
                
-                SqlCommand command = new SqlCommand("select ID,foto from fototbl"+Form1.kullaniciID+" ", con);
+                SqlCommand command = new SqlCommand("select ID,foto from fototbl"+Form1.kullaniciID+" where "+Text+"!=1 ", con);
                 SqlDataReader reader = command.ExecuteReader();
                 
                 while(reader.Read())
