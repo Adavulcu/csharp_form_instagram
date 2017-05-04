@@ -98,7 +98,7 @@ namespace _14331017MerveCandir
                     Text = ad;
                     instagramTab.SelectedTab = anaSayfaTab;
                     instagramTab.Controls.Remove(girisTab);
-                    anaSayfaPaylasim();
+                     anaSayfaPaylasim();
                 }
                 else
                     MessageBox.Show("gecersiz giriş");
@@ -131,17 +131,23 @@ namespace _14331017MerveCandir
                 arkadasID = new ArrayList();
                 //tüm arkadaslarlar secilip bir array liste atılıyor
                 SqlCommand command = new SqlCommand("select kisiID from arkadastbl"+kullaniciID+" ", con);
+               
                 SqlDataReader reader = command.ExecuteReader();
-                while(reader.Read())
+               
+                while (reader.Read())
                 {
+
                     arkadasID.Add(reader.GetInt32(0));
                 }
                 reader.Close();
+              
                 command.CommandText="select * from paylasimTbl ";
                 reader = command.ExecuteReader();
                 yorumlarRichText.Text = "";
+               
                 while (reader.Read())
                 {
+                   
                     //burada arakadsSec metodu cagrılarak paylasımın sahibi kullanıcının arkadasımı? yoksa degil mi kontrol edilyor
                     if (reader.GetInt32(1)==kullaniciID || arkadasSec(reader.GetInt32(1)))
                     {
@@ -151,6 +157,7 @@ namespace _14331017MerveCandir
                         foto.Add(reader.GetString(3));
                     }
                 }
+                reader.Close();
                 if (foto.Count == 0)
                 {
                     numericUpDown1.Minimum = 0;
@@ -159,12 +166,16 @@ namespace _14331017MerveCandir
                 }
                 else
                 {
-                    numericUpDown1.Minimum = 0;
-                    numericUpDown1.Maximum = foto.Count - 1;
-                    reader.Close();
+                    numericUpDown1.Minimum = 1;
+                    numericUpDown1.Maximum = foto.Count ;
+                    numericUpDown1.Value = foto.Count;
                     anaTabfotoID = Convert.ToString(fotoID[fotoID.Count - 1]);
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
                     command.CommandText = "select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[kisiID.Count - 1]) + "";
-                    paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
+                     paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
+                    
                     //sayfa ilk acıldıgında son paylasınlan foto buradan gösteriliyor
                     anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[foto.Count - 1]));
                     anaSayfapictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -172,6 +183,7 @@ namespace _14331017MerveCandir
                     command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[fotoID.Count - 1]) + "' ";
                     ArrayList yorum = new ArrayList();
                     ArrayList yorumKisiID = new ArrayList();
+                 
                     reader = command.ExecuteReader();
                     while (reader.Read())
                     {
@@ -180,6 +192,7 @@ namespace _14331017MerveCandir
                     }
                     reader.Close();
                     int counter = 0;
+                    yorumlarRichText.Text = "";
                     //paylasılan fotoya ait yorumlar
                     while (counter < yorum.Count)
                     {
@@ -214,6 +227,7 @@ namespace _14331017MerveCandir
             okulArkgridDoldur();
             okulArkDoldur();
             albumGroupBoxDoldur();
+            profilTabYorumYaprichTextBox1.Text = "";
 
         }
         //arkadas ara sayfasına gecildiginde gerekli kodlar 
@@ -448,6 +462,7 @@ namespace _14331017MerveCandir
                 ArrayList yorum = new ArrayList();
                 ArrayList kisiID = new ArrayList();
                 profilTabYorumText.Text = "";
+                profilTabYorumYaprichTextBox1.Text = "";
                 string fID = kullaniciID.ToString() + "*" + profilTabfotoID.ToString();
                 //secilen fotoya ait yorumlar
                 SqlCommand command = new SqlCommand("select yorum,kisiID from yorumTbl where fotoID='" + fID+ "'", con);
@@ -1266,12 +1281,12 @@ namespace _14331017MerveCandir
                     yorumlarRichText.Text = "";
                     anaSayfaYorumYaprichTextBox1.Text = "";
                     // MessageBox.Show(index.ToString());
-                    SqlCommand command = new SqlCommand("select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[Convert.ToInt32(numericUpDown1.Value)]) + "", con);
+                    SqlCommand command = new SqlCommand("select AdSoyad from kullaniciTbl where ID=" + Convert.ToInt32(kisiID[Convert.ToInt32(numericUpDown1.Value-1)]) + "", con);
                     paylasımKisilabel7.Text = command.ExecuteScalar().ToString();
-                    anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[Convert.ToInt32(numericUpDown1.Value)]));
+                    anaSayfapictureBox1.Image = Image.FromFile(Convert.ToString(foto[Convert.ToInt32(numericUpDown1.Value-1)]));
                     anaSayfapictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-                    anaTabfotoID = Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value)]);
-                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value)]) + "'";
+                    anaTabfotoID = Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value-1)]);
+                    command.CommandText = "select yorum,kisiID from yorumTbl where fotoID='" + Convert.ToString(fotoID[Convert.ToInt32(numericUpDown1.Value-1)]) + "'";
                     ArrayList yorum = new ArrayList();
                     ArrayList yorumKisiID = new ArrayList();
                     SqlDataReader reader = command.ExecuteReader();
@@ -1315,6 +1330,12 @@ namespace _14331017MerveCandir
             instagramTab.SelectedTab = anaSayfaTab;
             instagramTab.Controls.Remove(profilTab);
             instagramTab.Controls.Remove(arkadaslarAraTab);
+            anaSayfaYorumYaprichTextBox1.Text = "";
+        }
+
+        private void arkadaslarAraTab_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -370,7 +370,6 @@
             this.anaSayfapictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.anaSayfapictureBox1.TabIndex = 0;
             this.anaSayfapictureBox1.TabStop = false;
-           
             // 
             // yorumEkleBtn
             // 
@@ -389,7 +388,7 @@
             this.yorumlarRichText.ReadOnly = true;
             this.yorumlarRichText.Size = new System.Drawing.Size(389, 89);
             this.yorumlarRichText.TabIndex = 2;
-            this.yorumlarRichText.Text = "en büyük FenerBahce";
+            this.yorumlarRichText.Text = "";
             // 
             // groupBox3
             // 
@@ -455,6 +454,7 @@
             this.arkadaslarAraTab.TabIndex = 2;
             this.arkadaslarAraTab.Text = "ARKADAŞ ARA";
             this.arkadaslarAraTab.UseVisualStyleBackColor = true;
+            this.arkadaslarAraTab.Click += new System.EventHandler(this.arkadaslarAraTab_Click);
             // 
             // button1
             // 
@@ -640,7 +640,6 @@
             this.profilTabpictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.profilTabpictureBox3.TabIndex = 0;
             this.profilTabpictureBox3.TabStop = false;
-           
             // 
             // profilTabYorumText
             // 

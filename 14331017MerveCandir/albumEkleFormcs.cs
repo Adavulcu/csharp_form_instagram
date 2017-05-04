@@ -42,8 +42,9 @@ namespace _14331017MerveCandir
                   
                     frm.albumGroupBoxDoldur();
                     con.Close();
+                    this.Close();
                 }
-                this.Close();
+                
             }
             catch (Exception ex)
             {
@@ -54,6 +55,7 @@ namespace _14331017MerveCandir
 
         private void button2_Click(object sender, EventArgs e)
         {
+            con.Close();
             this.Close();
         }
 
